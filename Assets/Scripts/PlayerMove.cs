@@ -5,42 +5,26 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
   public GameObject Player;
-  public GameObject Camera;
+  public GameObject hito;
   public float speed;
   private Vector3 playerPos;
   private Transform PlayerTransform;
-  private Transform CameraTransform;
-  private float ii;
   private Animator animator;
   private Rigidbody rb;
   private float jumpForce = 300.0f;
   private bool Ground = true;
 
-  // Use this for initialization
   void Start()
   {
-    rb = GameObject.Find("Player").GetComponent<Rigidbody>();
-    PlayerTransform = GameObject.Find("Camera").transform.parent;
-    playerPos = GameObject.Find("Player").transform.position;
-    animator = GameObject.Find("Player").GetComponent<Animator>();
-    CameraTransform = GameObject.Find("Camera").GetComponent<Transform>();
-    CameraTransform.transform.Rotate(360f, 0, 0);
+    rb = Player.GetComponent<Rigidbody>();
+    PlayerTransform = hito.transform.parent;
+    playerPos = Player.transform.position;
+    animator = Player.GetComponent<Animator>();
   }
+
 
   void Update()
   {
-    float X_Rotation = Input.GetAxis("Mouse X");
-    float Y_Rotation = Input.GetAxis("Mouse Y");
-    PlayerTransform.transform.Rotate(0, X_Rotation, 0);
-
-    ii = (Camera.transform.localEulerAngles.x - Y_Rotation) * Mathf.Deg2Rad;
-    ii = Mathf.Sin(ii);
-
-    if (ii > -0.6f && ii < 0.6f)
-    {
-      CameraTransform.transform.Rotate(-Y_Rotation, 0, 0);
-    }
-
 
     Move();
 
@@ -52,7 +36,7 @@ public class PlayerMove : MonoBehaviour
     {
       if (Input.GetButtonDown("Jump"))
       {
-        rb.AddForce(transform.up * jumpForce, ForceMode.Force);
+        rb.AddForce(transform.up * jumpForce, ForceMode.Acceleration);
         //rb.velocity += transform.up * jumpForce * time.deltatime / mass
         //rb.velocity += transform.up * jumpForce / mass
         Ground = false;

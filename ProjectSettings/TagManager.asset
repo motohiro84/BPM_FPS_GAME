@@ -6,6 +6,8 @@ TagManager:
   tags:
   - WP
   - ShootSmoke
+  - Ground
+  - rock
   layers:
   - Default
   - TransparentFX

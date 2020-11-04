@@ -8208,6 +8208,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1076772887619990292}
+  - component: {fileID: 1076772887619990296}
   m_Layer: 9
   m_Name: Muzzle
   m_TagString: Untagged
@@ -8215,6 +8216,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1076772887619990296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076772887619990295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b908c3b83f2e44fe904c95325c0ffdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shootEnabled: 1
+  maxAmmo: 6
+  muzzleFlashScale: {x: 0.002, y: 0.002, z: 0.002}
+  muzzleFlashPrefab: {fileID: 1611179162520996753, guid: ad026f0e9dac3a9418cf7e8e4651d0c1,
+    type: 3}
+  hitEffectPrefab: {fileID: 0}
 --- !u!1 &1077632631765781560
 GameObject:
   m_ObjectHideFlags: 0
@@ -41658,7 +41677,7 @@ GameObject:
   - component: {fileID: 6066456521435247279}
   m_Layer: 0
   m_Name: Room
-  m_TagString: Untagged
+  m_TagString: rock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41756,7 +41775,7 @@ GameObject:
   - component: {fileID: 6066456522139138952}
   m_Layer: 0
   m_Name: Kabe
-  m_TagString: Untagged
+  m_TagString: rock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41882,7 +41901,7 @@ GameObject:
   - component: {fileID: 6066456522792030021}
   m_Layer: 0
   m_Name: Kabe (3)
-  m_TagString: Untagged
+  m_TagString: rock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42035,7 +42054,7 @@ GameObject:
   - component: {fileID: 6066456523035446120}
   m_Layer: 0
   m_Name: Kabe (2)
-  m_TagString: Untagged
+  m_TagString: rock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42142,7 +42161,7 @@ GameObject:
   - component: {fileID: 6066456523041732073}
   m_Layer: 0
   m_Name: Kabe (1)
-  m_TagString: Untagged
+  m_TagString: rock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

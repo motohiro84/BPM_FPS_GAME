@@ -17,6 +17,11 @@ public class FirstPersonGunController : MonoBehaviour
   GameObject muzzleFlash;
   GameObject hitEffect;
   public GameObject RayPos;
+  AudioSource audioSource;
+  public AudioClip sound1;
+  public AudioClip sound2;
+
+
   public int Ammo
   {
     set
@@ -30,6 +35,7 @@ public class FirstPersonGunController : MonoBehaviour
   }
   void Start()
   {
+    audioSource = GameObject.Find("Player").GetComponent<AudioSource>();
     InitGun();
   }
   void Update()
@@ -51,7 +57,7 @@ public class FirstPersonGunController : MonoBehaviour
   }
   IEnumerator ShootTimer()
   {
-    if (!shooting)
+    if (!shooting && ammo != 0)
     {
       shooting = true;
       //マズルフラッシュON
@@ -70,6 +76,7 @@ public class FirstPersonGunController : MonoBehaviour
       }
 
       Shoot();
+      audioSource.PlayOneShot(sound1);
       yield return new WaitForSeconds(shootInterval);
 
       //マズルフラッシュOFF
@@ -80,17 +87,18 @@ public class FirstPersonGunController : MonoBehaviour
       }
       //ヒットエフェクトOFF
 
-      // if (hitEffect != null)
-      // {
-      //   if (hitEffect.activeSelf)
-      //   {
-      //     Invoke("HitMethod", 1.0f);
-      //   }
-      // }
+      if (hitEffect != null)
+      {
+        if (hitEffect.activeSelf)
+        {
+          Invoke("HitMethod", 1.0f);
+        }
+      }
       shooting = false;
     }
     else
     {
+      audioSource.PlayOneShot(sound2);
       yield return null;
     }
   }
@@ -100,10 +108,10 @@ public class FirstPersonGunController : MonoBehaviour
     muzzleFlash.SetActive(false);
   }
 
-  // void HitMethod()
-  // {
-  //   hitEffect.SetActive(false);
-  // }
+  void HitMethod()
+  {
+    hitEffect.SetActive(false);
+  }
 
   void Shoot()
   {
@@ -115,17 +123,17 @@ public class FirstPersonGunController : MonoBehaviour
       //ヒットエフェクトON
       if (hitEffectPrefab != null)
       {
-        // if (hitEffect != null)
-        // {
-        //   hitEffect.transform.position = hit.point;
-        //   hitEffect.transform.rotation = Quaternion.FromToRotation(Vector3.forward, hit.normal);
-        //   hitEffect.SetActive(true);
-        // }
-        // else
-        // {
-        hitEffect = Instantiate(hitEffectPrefab, hit.point, Quaternion.identity);
-        Destroy(hitEffect, 1f);
-        // }
+        if (hitEffect != null)
+        {
+          hitEffect.transform.position = hit.point;
+          hitEffect.transform.rotation = Quaternion.FromToRotation(Vector3.forward, hit.normal);
+          hitEffect.SetActive(true);
+        }
+        else
+        {
+          hitEffect = Instantiate(hitEffectPrefab, hit.point, Quaternion.identity);
+        // Destroy(hitEffect, 1f);
+        }
       }
 
 

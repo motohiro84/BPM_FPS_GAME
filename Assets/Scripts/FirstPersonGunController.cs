@@ -87,13 +87,13 @@ public class FirstPersonGunController : MonoBehaviour
       }
       //ヒットエフェクトOFF
 
-      if (hitEffect != null)
-      {
-        if (hitEffect.activeSelf)
-        {
-          Invoke("HitMethod", 1.0f);
-        }
-      }
+      // if (hitEffect != null)
+      // {
+      //   if (hitEffect.activeSelf)
+      //   {
+      //     Invoke("HitMethod", 1.0f);
+      //   }
+      // }
       shooting = false;
     }
     else
@@ -108,10 +108,10 @@ public class FirstPersonGunController : MonoBehaviour
     muzzleFlash.SetActive(false);
   }
 
-  void HitMethod()
-  {
-    hitEffect.SetActive(false);
-  }
+  // void HitMethod()
+  // {
+  //   hitEffect.SetActive(false);
+  // }
 
   void Shoot()
   {
@@ -123,17 +123,17 @@ public class FirstPersonGunController : MonoBehaviour
       //ヒットエフェクトON
       if (hitEffectPrefab != null)
       {
-        if (hitEffect != null)
-        {
-          hitEffect.transform.position = hit.point;
-          hitEffect.transform.rotation = Quaternion.FromToRotation(Vector3.forward, hit.normal);
-          hitEffect.SetActive(true);
-        }
-        else
-        {
+        // if (hitEffect != null)
+        // {
+        //   hitEffect.transform.position = hit.point;
+        //   hitEffect.transform.rotation = Quaternion.FromToRotation(Vector3.forward, hit.normal);
+        //   hitEffect.SetActive(true);
+        // }
+        // else
+        // {
           hitEffect = Instantiate(hitEffectPrefab, hit.point, Quaternion.identity);
-        // Destroy(hitEffect, 1f);
-        }
+        Destroy(hitEffect, 1f);
+        // }
       }
 
 

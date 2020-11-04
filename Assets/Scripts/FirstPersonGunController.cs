@@ -16,6 +16,7 @@ public class FirstPersonGunController : MonoBehaviour
   int ammo;
   GameObject muzzleFlash;
   GameObject hitEffect;
+  public GameObject RayPos;
   public int Ammo
   {
     set
@@ -67,21 +68,25 @@ public class FirstPersonGunController : MonoBehaviour
           muzzleFlash.transform.localScale = muzzleFlashScale;
         }
       }
+
       Shoot();
       yield return new WaitForSeconds(shootInterval);
+
       //マズルフラッシュOFF
+
       if (muzzleFlash != null)
       {
-        muzzleFlash.SetActive(false);
+        Invoke("FlashMethod", 0.5f);
       }
       //ヒットエフェクトOFF
-      if (hitEffect != null)
-      {
-        if (hitEffect.activeSelf)
-        {
-          hitEffect.SetActive(false);
-        }
-      }
+
+      // if (hitEffect != null)
+      // {
+      //   if (hitEffect.activeSelf)
+      //   {
+      //     Invoke("HitMethod", 1.0f);
+      //   }
+      // }
       shooting = false;
     }
     else
@@ -89,9 +94,20 @@ public class FirstPersonGunController : MonoBehaviour
       yield return null;
     }
   }
+
+  void FlashMethod()
+  {
+    muzzleFlash.SetActive(false);
+  }
+
+  // void HitMethod()
+  // {
+  //   hitEffect.SetActive(false);
+  // }
+
   void Shoot()
   {
-    Ray ray = new Ray(transform.position, transform.forward);
+    Ray ray = new Ray(RayPos.transform.position, RayPos.transform.forward);
     RaycastHit hit;
     //レイを飛ばして、ヒットしたオブジェクトの情報を得る
     if (Physics.Raycast(ray, out hit, shootRange))
@@ -99,19 +115,22 @@ public class FirstPersonGunController : MonoBehaviour
       //ヒットエフェクトON
       if (hitEffectPrefab != null)
       {
-        if (hitEffect != null)
-        {
-          hitEffect.transform.position = hit.point;
-          hitEffect.transform.rotation = Quaternion.FromToRotation(Vector3.forward, hit.normal);
-          hitEffect.SetActive(true);
-        }
-        else
-        {
-          hitEffect = Instantiate(hitEffectPrefab, hit.point, Quaternion.identity);
-        }
+        // if (hitEffect != null)
+        // {
+        //   hitEffect.transform.position = hit.point;
+        //   hitEffect.transform.rotation = Quaternion.FromToRotation(Vector3.forward, hit.normal);
+        //   hitEffect.SetActive(true);
+        // }
+        // else
+        // {
+        hitEffect = Instantiate(hitEffectPrefab, hit.point, Quaternion.identity);
+        Destroy(hitEffect, 1f);
+        // }
       }
-      //★ここに敵へのダメージ処理などを追加
+
+
     }
     Ammo--;
   }
+
 }

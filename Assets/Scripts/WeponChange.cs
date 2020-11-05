@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class WeponChange : MonoBehaviour
 {
-  public GameObject Wepon1;
-  public GameObject Wepon2;
+  public GameObject[] Wepon;
+  //   public GameObject Wepon1;
+  //   public GameObject Wepon2;
   void Start()
   {
-    Wepon1.SetActive(true);
+    Wepon[0].SetActive(true);
   }
 
-  // Update is called once per frame
   void Update()
   {
     Change();
@@ -19,15 +19,15 @@ public class WeponChange : MonoBehaviour
 
   void Change()
   {
-    if (Wepon2.activeSelf && Input.GetKeyDown(KeyCode.Alpha1))
+    if (Wepon[1].activeSelf && Input.GetKeyDown(KeyCode.Alpha1))
     {
-      Wepon1.SetActive(true);
-      Wepon2.SetActive(false);
+      Wepon[0].SetActive(true);
+      Wepon[1].SetActive(false);
     }
-    else if (Wepon1.activeSelf && Input.GetKeyDown(KeyCode.Alpha2))
+    else if (Wepon[0].activeSelf && Input.GetKeyDown(KeyCode.Alpha2))
     {
-      Wepon1.SetActive(false);
-      Wepon2.SetActive(true);
+      Wepon[0].SetActive(false);
+      Wepon[1].SetActive(true);
     }
   }
 

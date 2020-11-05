@@ -42,11 +42,11 @@ public class FirstPersonGunController : MonoBehaviour
 
   void Update()
   {
-    if (shootEnabled & ammo > 0 & GetInput())
+    if (shootEnabled && ammo > 0 && GetInput())
     {
       StartCoroutine(ShootTimer());
     }
-    else if(shootEnabled & ammo == 0 & GetInput())
+    else if(shootEnabled && ammo == 0 && GetInput())
     {
       audioSource.PlayOneShot(sound2);
     }

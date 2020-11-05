@@ -33,28 +33,41 @@ public class FirstPersonGunController : MonoBehaviour
       return ammo;
     }
   }
+
   void Start()
   {
     audioSource = GameObject.Find("Player").GetComponent<AudioSource>();
     InitGun();
   }
+
   void Update()
   {
     if (shootEnabled & ammo > 0 & GetInput())
     {
       StartCoroutine(ShootTimer());
     }
+    else if(shootEnabled & ammo == 0 & GetInput())
+    {
+      audioSource.PlayOneShot(sound2);
+    }
+
+    if (ammo < maxAmmo & GunRelord())
+    {
+      InitGun();
+    }
+    
   }
+
   void InitGun()
   {
     Ammo = maxAmmo;
   }
+
   bool GetInput()
   {
-
     return Input.GetMouseButtonDown(0);
-    return false;
   }
+
   IEnumerator ShootTimer()
   {
     if (!shooting && ammo != 0)
@@ -83,7 +96,7 @@ public class FirstPersonGunController : MonoBehaviour
 
       if (muzzleFlash != null)
       {
-        Invoke("FlashMethod", 0.5f);
+        Invoke("FlashMethod", 0.1f);
       }
       //ヒットエフェクトOFF
 
@@ -98,7 +111,6 @@ public class FirstPersonGunController : MonoBehaviour
     }
     else
     {
-      audioSource.PlayOneShot(sound2);
       yield return null;
     }
   }
@@ -135,10 +147,13 @@ public class FirstPersonGunController : MonoBehaviour
         Destroy(hitEffect, 1f);
         // }
       }
-
-
     }
     Ammo--;
+  }
+
+  bool GunRelord()
+  {
+    return Input.GetKeyDown(KeyCode.R);
   }
 
 }

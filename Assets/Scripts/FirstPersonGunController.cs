@@ -5,7 +5,9 @@ public class FirstPersonGunController : MonoBehaviour
 {
   public bool shootEnabled = true;
 
-  public int maxAmmo = 6;
+  public int maxAmmo;
+  public static int fullAmmo;
+  private int ammo;
 
   private float shootInterval = 0.15f;
   private float shootRange = 50;
@@ -13,7 +15,6 @@ public class FirstPersonGunController : MonoBehaviour
   public GameObject muzzleFlashPrefab;
   public GameObject hitEffectPrefab;
   bool shooting = false;
-  int ammo;
   GameObject muzzleFlash;
   GameObject hitEffect;
   public GameObject RayPos;
@@ -36,6 +37,7 @@ public class FirstPersonGunController : MonoBehaviour
 
   void Start()
   {
+    fullAmmo = maxAmmo;
     audioSource = GameObject.Find("Player").GetComponent<AudioSource>();
     InitGun();
   }

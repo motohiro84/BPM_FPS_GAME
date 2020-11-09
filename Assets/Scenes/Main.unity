@@ -7585,6 +7585,7 @@ MonoBehaviour:
   RayPos: {fileID: 2092042391}
   sound1: {fileID: 8300000, guid: f3eb1c91c9ddbc6419839e7688988d8d, type: 3}
   sound2: {fileID: 8300000, guid: 81fd9e79b0c4de8429890ca05996ac9f, type: 3}
+  motionObj: {fileID: 0}
 --- !u!1 &959671131485421159
 GameObject:
   m_ObjectHideFlags: 0
@@ -8832,6 +8833,7 @@ MonoBehaviour:
   RayPos: {fileID: 2092042391}
   sound1: {fileID: 8300000, guid: f3eb1c91c9ddbc6419839e7688988d8d, type: 3}
   sound2: {fileID: 8300000, guid: 81fd9e79b0c4de8429890ca05996ac9f, type: 3}
+  motionObj: {fileID: 1077632631765781560}
 --- !u!1 &1077632631765781560
 GameObject:
   m_ObjectHideFlags: 0
@@ -42140,6 +42142,7 @@ MonoBehaviour:
   RayPos: {fileID: 2092042391}
   sound1: {fileID: 8300000, guid: 33528e1dbc0d6844a8788bae6d03de22, type: 3}
   sound2: {fileID: 8300000, guid: 0fa0bd65d19bc174aac13ab86ee1e550, type: 3}
+  motionObj: {fileID: 0}
 --- !u!1 &5922243288624467767
 GameObject:
   m_ObjectHideFlags: 0

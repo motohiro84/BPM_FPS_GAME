@@ -5,52 +5,37 @@ using UnityEngine;
 public class Motion : MonoBehaviour
 {
   private Animator animator;
-  private int maxAmmo;
-  private int ammo;
   string state;
   string prevState;
+  public static AnimatorStateInfo stateInfo;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = this.gameObject.GetComponent<Animator>();
-        maxAmmo = FirstPersonGunController.fullAmmo;
-        ammo = maxAmmo;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        ChangeState();
-        ChangeAnimation();
+      stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+      ChangeState();
+      ChangeAnimation();
     }
 
   void ChangeState()
   {
 
-
-    if (Input.GetMouseButtonDown(0))
+    // if ((stateInfo.fullPathHash !=  Animator.StringToHash("Base Layer.Relord")) && Input.GetKeyDown(KeyCode.R))
+    // {
+    //     state = "Relord";
+    // }
+    if ((stateInfo.fullPathHash ==  Animator.StringToHash("Base Layer.Relord")) && Input.GetKeyDown(KeyCode.R))
     {
-        if (ammo != 0)
-        {
-            state = "Fire";
-            ammo--;
-        }
-        else
-        {
-            state = "DryFire";
-        }
+        state = "RelordEnd";
     }
-    else if ((ammo < maxAmmo) & Input.GetKeyDown(KeyCode.R))
-    {
-        state = "Relord1";
-    }
-    else if ((state == "Relord1") && Input.GetKeyDown(KeyCode.R))
-    {
-        ammo = maxAmmo;
-        state = "Relord2";
-    }
-    else if (state != "Relord1")
+    else if ((stateInfo.fullPathHash !=  Animator.StringToHash("Base Layer.Relord")))
     {
         state = "Idle";
     }
@@ -66,26 +51,47 @@ public class Motion : MonoBehaviour
         case "Fire":
           animator.SetTrigger("Fire");
           animator.SetBool("Idle", false);
+          animator.SetBool("Relord", false);
           break;
         case "DryFire":
           animator.SetTrigger("DryFire");
           animator.SetBool("Idle", false);
+          animator.SetBool("Relord", false);
           break;
-        case "Relord1":
-          animator.SetTrigger("Relord1");
+        case "Relord":
+          animator.SetBool("Relord", true);
           animator.SetBool("Idle", false);
           break;
-        case "Relord2":
-          animator.SetTrigger("Relord2");
+        case "RelordEnd":
+          animator.SetTrigger("RelordEnd");
+          animator.SetBool("Relord", false);
           animator.SetBool("Idle", false);
           break;
 
         default:
           animator.SetBool("Idle", true);
+          animator.SetBool("Relord", false);
           break;
       }
       prevState = state;
     }
   }
 
+  public void FireShootMotion()
+  {
+    state = "Fire";
+    ChangeAnimation();
+  }
+  
+  public void DryShootMotion()
+  {
+    state = "DryFire";
+    ChangeAnimation();
+  }
+
+  public void RelordMotion()
+  {
+    state = "Relord";
+    ChangeAnimation();
+  }
 }

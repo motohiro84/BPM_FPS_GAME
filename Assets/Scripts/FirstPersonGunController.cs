@@ -6,7 +6,6 @@ public class FirstPersonGunController : MonoBehaviour
   public bool shootEnabled = true;
 
   public int maxAmmo;
-  public static int fullAmmo;
   private int ammo;
 
   private float shootInterval = 0.15f;
@@ -21,6 +20,9 @@ public class FirstPersonGunController : MonoBehaviour
   AudioSource audioSource;
   public AudioClip sound1;
   public AudioClip sound2;
+  Motion motion;
+  public GameObject motionObj;
+  private Animator animator;
 
 
   public int Ammo
@@ -37,8 +39,9 @@ public class FirstPersonGunController : MonoBehaviour
 
   void Start()
   {
-    fullAmmo = maxAmmo;
     audioSource = GameObject.Find("Player").GetComponent<AudioSource>();
+    motion = motionObj.GetComponent<Motion>();
+    animator = motionObj.GetComponent<Animator>();
     InitGun();
   }
 
@@ -47,13 +50,19 @@ public class FirstPersonGunController : MonoBehaviour
     if (shootEnabled && ammo > 0 && GetInput())
     {
       StartCoroutine(ShootTimer());
+      motion.FireShootMotion();
     }
     else if(shootEnabled && ammo == 0 && GetInput())
     {
       audioSource.PlayOneShot(sound2);
+      motion.DryShootMotion();
     }
 
-    if (ammo < maxAmmo & GunRelord())
+    if (ammo < maxAmmo && GunRelord() && Motion.stateInfo.fullPathHash !=  Animator.StringToHash("Base Layer.Relord"))
+    {
+      motion.RelordMotion();
+    }
+    if(GunRelord() && Motion.stateInfo.fullPathHash ==  Animator.StringToHash("Base Layer.Relord"))
     {
       InitGun();
     }
@@ -139,13 +148,13 @@ public class FirstPersonGunController : MonoBehaviour
       {
         // if (hitEffect != null)
         // {
-        //   hitEffect.transform.position = hit.point;
-        //   hitEffect.transform.rotation = Quaternion.FromToRotation(Vector3.forward, hit.normal);
+          // hitEffect.transform.position = hit.point;
         //   hitEffect.SetActive(true);
         // }
         // else
         // {
-          hitEffect = Instantiate(hitEffectPrefab, hit.point, Quaternion.identity);
+        hitEffect = Instantiate(hitEffectPrefab, hit.point, Quaternion.identity);
+        hitEffect.transform.rotation = Quaternion.FromToRotation(Vector3.forward, hit.normal);
         Destroy(hitEffect, 1f);
         // }
       }

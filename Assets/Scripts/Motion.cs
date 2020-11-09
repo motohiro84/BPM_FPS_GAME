@@ -5,21 +5,18 @@ using UnityEngine;
 public class Motion : MonoBehaviour
 {
   private Animator animator;
-  string state;
+  public static string state;
   string prevState;
-  public static AnimatorStateInfo stateInfo;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = this.gameObject.GetComponent<Animator>();
-
     }
 
     // Update is called once per frame
     void Update()
     {
-      stateInfo = animator.GetCurrentAnimatorStateInfo(0);
       ChangeState();
       ChangeAnimation();
     }
@@ -31,13 +28,13 @@ public class Motion : MonoBehaviour
     // {
     //     state = "Relord";
     // }
-    if ((stateInfo.fullPathHash ==  Animator.StringToHash("Base Layer.Relord")) && Input.GetKeyDown(KeyCode.R))
-    {
-        state = "RelordEnd";
-    }
-    else if ((stateInfo.fullPathHash !=  Animator.StringToHash("Base Layer.Relord")))
+    if (state != "Relord")
     {
         state = "Idle";
+    }
+    if (GunRelord() && state == "Relord")
+    {
+        state = "RelordEnd";
     }
 
   }
@@ -75,6 +72,11 @@ public class Motion : MonoBehaviour
       }
       prevState = state;
     }
+  }
+
+  bool GunRelord()
+  {
+    return Input.GetKeyDown(KeyCode.R);
   }
 
   public void FireShootMotion()

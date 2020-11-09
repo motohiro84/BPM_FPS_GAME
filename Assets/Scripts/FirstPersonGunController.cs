@@ -23,6 +23,7 @@ public class FirstPersonGunController : MonoBehaviour
   Motion motion;
   public GameObject motionObj;
   private Animator animator;
+  AnimatorStateInfo stateInfo;
 
 
   public int Ammo
@@ -41,7 +42,6 @@ public class FirstPersonGunController : MonoBehaviour
   {
     audioSource = GameObject.Find("Player").GetComponent<AudioSource>();
     motion = motionObj.GetComponent<Motion>();
-    animator = motionObj.GetComponent<Animator>();
     InitGun();
   }
 
@@ -58,15 +58,25 @@ public class FirstPersonGunController : MonoBehaviour
       motion.DryShootMotion();
     }
 
-    if (ammo < maxAmmo && GunRelord() && Motion.stateInfo.fullPathHash !=  Animator.StringToHash("Base Layer.Relord"))
+    if (ammo < maxAmmo && GunRelord())
     {
-      motion.RelordMotion();
-    }
-    if(GunRelord() && Motion.stateInfo.fullPathHash ==  Animator.StringToHash("Base Layer.Relord"))
-    {
-      InitGun();
+      RelordKey();
     }
     
+  }
+
+  void RelordKey()
+  {
+    if(Motion.state == "RelordEnd")
+    {
+      Debug.Log("2");
+      InitGun();
+    }
+    else
+    {
+      Debug.Log("3");
+      motion.RelordMotion();
+    }
   }
 
   void InitGun()

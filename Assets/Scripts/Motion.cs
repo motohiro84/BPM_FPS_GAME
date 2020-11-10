@@ -12,6 +12,7 @@ public class Motion : MonoBehaviour
   void Start()
   {
     animator = this.gameObject.GetComponent<Animator>();
+    state = "Idle";
   }
 
   // Update is called once per frame
@@ -23,11 +24,6 @@ public class Motion : MonoBehaviour
 
   void ChangeState()
   {
-
-    // if ((stateInfo.fullPathHash !=  Animator.StringToHash("Base Layer.Relord")) && Input.GetKeyDown(KeyCode.R))
-    // {
-    //     state = "Relord";
-    // }
     if (state != "Relord" && state != "RelordEnd")
     {
       state = "Idle";

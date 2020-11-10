@@ -38,7 +38,7 @@ public class WallMaker : MonoBehaviour
       {
         if (map[i, j] == 1)
         {
-          Instantiate(wall, new Vector3((j * 2) - 19, 0, (i * 2) - 19), Quaternion.identity);
+          Instantiate(wall, new Vector3((j * 2) - 19, 10, (i * 2) - 19), Quaternion.identity);
         }
       }
     } //このループで二次元配列に基づいて壁を作成

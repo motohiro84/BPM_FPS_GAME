@@ -23,8 +23,6 @@ public class FirstPersonGunController : MonoBehaviour
   Motion motion;
   public GameObject motionObj;
   private Animator animator;
-  AnimatorStateInfo stateInfo;
-
 
   public int Ammo
   {
@@ -42,39 +40,41 @@ public class FirstPersonGunController : MonoBehaviour
   {
     audioSource = GameObject.Find("Player").GetComponent<AudioSource>();
     motion = motionObj.GetComponent<Motion>();
+    animator = motionObj.GetComponent<Animator>();
     InitGun();
   }
 
   void Update()
   {
-    if (shootEnabled && ammo > 0 && GetInput())
-    {
-      StartCoroutine(ShootTimer());
-      motion.FireShootMotion();
-    }
-    else if(shootEnabled && ammo == 0 && GetInput())
-    {
-      audioSource.PlayOneShot(sound2);
-      motion.DryShootMotion();
-    }
-
     if (ammo < maxAmmo && GunRelord())
     {
       RelordKey();
     }
-    
+
+    if (animator.GetBool("Idle"))
+    {
+      if (shootEnabled && ammo > 0 && GetInput())
+      {
+        StartCoroutine(ShootTimer());
+        motion.FireShootMotion();
+      }
+      else if (shootEnabled && ammo == 0 && GetInput())
+      {
+        audioSource.PlayOneShot(sound2);
+        motion.DryShootMotion();
+      }
+    }
+
   }
 
   void RelordKey()
   {
-    if(Motion.state == "RelordEnd")
+    if (Motion.state == "RelordEnd")
     {
-      Debug.Log("2");
       InitGun();
     }
     else
     {
-      Debug.Log("3");
       motion.RelordMotion();
     }
   }
@@ -158,7 +158,7 @@ public class FirstPersonGunController : MonoBehaviour
       {
         // if (hitEffect != null)
         // {
-          // hitEffect.transform.position = hit.point;
+        // hitEffect.transform.position = hit.point;
         //   hitEffect.SetActive(true);
         // }
         // else

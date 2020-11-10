@@ -8,18 +8,18 @@ public class Motion : MonoBehaviour
   public static string state;
   string prevState;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        animator = this.gameObject.GetComponent<Animator>();
-    }
+  // Start is called before the first frame update
+  void Start()
+  {
+    animator = this.gameObject.GetComponent<Animator>();
+  }
 
-    // Update is called once per frame
-    void Update()
-    {
-      ChangeState();
-      ChangeAnimation();
-    }
+  // Update is called once per frame
+  void Update()
+  {
+    ChangeState();
+    ChangeAnimation();
+  }
 
   void ChangeState()
   {
@@ -30,11 +30,11 @@ public class Motion : MonoBehaviour
     // }
     if (state != "Relord")
     {
-        state = "Idle";
+      state = "Idle";
     }
     if (GunRelord() && state == "Relord")
     {
-        state = "RelordEnd";
+      state = "RelordEnd";
     }
 
   }
@@ -49,18 +49,21 @@ public class Motion : MonoBehaviour
           animator.SetTrigger("Fire");
           animator.SetBool("Idle", false);
           animator.SetBool("Relord", false);
+          animator.SetBool("RelordEnd", false);
           break;
         case "DryFire":
           animator.SetTrigger("DryFire");
           animator.SetBool("Idle", false);
           animator.SetBool("Relord", false);
+          animator.SetBool("RelordEnd", false);
           break;
         case "Relord":
           animator.SetBool("Relord", true);
           animator.SetBool("Idle", false);
+          animator.SetBool("RelordEnd", false);
           break;
         case "RelordEnd":
-          animator.SetTrigger("RelordEnd");
+          animator.SetBool("RelordEnd", true);
           animator.SetBool("Relord", false);
           animator.SetBool("Idle", false);
           break;
@@ -68,6 +71,7 @@ public class Motion : MonoBehaviour
         default:
           animator.SetBool("Idle", true);
           animator.SetBool("Relord", false);
+          animator.SetBool("RelordEnd", false);
           break;
       }
       prevState = state;
@@ -84,7 +88,7 @@ public class Motion : MonoBehaviour
     state = "Fire";
     ChangeAnimation();
   }
-  
+
   public void DryShootMotion()
   {
     state = "DryFire";

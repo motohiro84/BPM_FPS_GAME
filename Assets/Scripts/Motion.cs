@@ -28,7 +28,7 @@ public class Motion : MonoBehaviour
     // {
     //     state = "Relord";
     // }
-    if (state != "Relord")
+    if (state != "Relord" && state != "RelordEnd")
     {
       state = "Idle";
     }
@@ -98,6 +98,11 @@ public class Motion : MonoBehaviour
   public void RelordMotion()
   {
     state = "Relord";
+    ChangeAnimation();
+  }
+  public void IdleMotion()
+  {
+    state = "Idle";
     ChangeAnimation();
   }
 }

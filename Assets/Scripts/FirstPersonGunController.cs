@@ -4,7 +4,6 @@ using UnityEngine;
 public class FirstPersonGunController : MonoBehaviour
 {
   public bool shootEnabled = true;
-
   public int maxAmmo;
   private int ammo;
 

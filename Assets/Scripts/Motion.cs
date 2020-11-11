@@ -12,7 +12,6 @@ public class Motion : MonoBehaviour
   void Start()
   {
     animator = this.gameObject.GetComponent<Animator>();
-    state = "Idle";
   }
 
   // Update is called once per frame
@@ -96,7 +95,7 @@ public class Motion : MonoBehaviour
     state = "Relord";
     ChangeAnimation();
   }
-  public void IdleMotion()
+  void IdleMotion()
   {
     state = "Idle";
     ChangeAnimation();

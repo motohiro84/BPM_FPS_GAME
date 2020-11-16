@@ -5,8 +5,8 @@ using UnityEngine;
 public class WeponChange : MonoBehaviour
 {
   public GameObject[] Wepon;
-  //   public GameObject Wepon1;
-  //   public GameObject Wepon2;
+  public static int Key = 1;
+
   void Start()
   {
     Wepon[0].SetActive(true);
@@ -23,11 +23,13 @@ public class WeponChange : MonoBehaviour
     {
       Wepon[0].SetActive(true);
       Wepon[1].SetActive(false);
+      Key = 1;
     }
     else if (Wepon[0].activeSelf && Input.GetKeyDown(KeyCode.Alpha2))
     {
       Wepon[0].SetActive(false);
       Wepon[1].SetActive(true);
+      Key = 2;
     }
   }
 

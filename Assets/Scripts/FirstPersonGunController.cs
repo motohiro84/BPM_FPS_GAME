@@ -22,7 +22,7 @@ public class FirstPersonGunController : MonoBehaviour
   Motion motion;
   public GameObject motionObj;
   private Animator animator;
-
+  private Vector3 Circle;
   public int Ammo
   {
     set
@@ -50,6 +50,7 @@ public class FirstPersonGunController : MonoBehaviour
       RelordKey();
     }
 
+    Debug.Log("2");
     if (animator.GetBool("Idle"))
     {
       if (shootEnabled && ammo > 0 && GetInput())
@@ -60,7 +61,10 @@ public class FirstPersonGunController : MonoBehaviour
       else if (shootEnabled && ammo == 0 && GetInput())
       {
         audioSource.PlayOneShot(sound2);
-        motion.DryShootMotion();
+        if (WeponChange.Key == 1)
+        {
+          motion.DryShootMotion();
+        }
       }
     }
 
@@ -108,25 +112,25 @@ public class FirstPersonGunController : MonoBehaviour
         }
       }
 
-      Shoot();
+      if (WeponChange.Key == 1)
+      {
+        Shoot();
+      }
+      else if (WeponChange.Key == 2)
+      {
+        for (int i = 0; i < 7; i++)
+        {
+          Shoot();
+        }
+      }
+
       audioSource.PlayOneShot(sound1);
       yield return new WaitForSeconds(shootInterval);
-
-      //マズルフラッシュOFF
 
       if (muzzleFlash != null)
       {
         Invoke("FlashMethod", 0.1f);
       }
-      //ヒットエフェクトOFF
-
-      // if (hitEffect != null)
-      // {
-      //   if (hitEffect.activeSelf)
-      //   {
-      //     Invoke("HitMethod", 1.0f);
-      //   }
-      // }
       shooting = false;
     }
     else
@@ -140,40 +144,46 @@ public class FirstPersonGunController : MonoBehaviour
     muzzleFlash.SetActive(false);
   }
 
-  // void HitMethod()
-  // {
-  //   hitEffect.SetActive(false);
-  // }
-
   void Shoot()
   {
-    Ray ray = new Ray(RayPos.transform.position, RayPos.transform.forward);
+    Ray ray;
+    ray = new Ray(RayPos.transform.position, RayPos.transform.forward);
+
+    if (WeponChange.Key == 2)
+    {
+      CircleHorizon();
+      ray = new Ray(RayPos.transform.position, Circle);
+    }
+
     RaycastHit hit;
-    //レイを飛ばして、ヒットしたオブジェクトの情報を得る
+
     if (Physics.Raycast(ray, out hit, shootRange))
     {
-      //ヒットエフェクトON
       if (hitEffectPrefab != null)
       {
-        // if (hitEffect != null)
-        // {
-        // hitEffect.transform.position = hit.point;
-        //   hitEffect.SetActive(true);
-        // }
-        // else
-        // {
         hitEffect = Instantiate(hitEffectPrefab, hit.point, Quaternion.identity);
         hitEffect.transform.rotation = Quaternion.FromToRotation(Vector3.forward, hit.normal);
         Destroy(hitEffect, 1f);
-        // }
       }
     }
+
     Ammo--;
+
   }
 
   bool GunRelord()
   {
     return Input.GetKeyDown(KeyCode.R);
+  }
+
+  void CircleHorizon()
+  {
+    float angle = Random.Range(-15, 15);
+    float rad = angle * Mathf.Deg2Rad;
+    float px = Mathf.Cos(rad) * 1;
+    float py = Mathf.Sin(rad) * 1;
+    Circle = new Vector3(px, py, 1);
+    Debug.Log(Circle);
   }
 
 }

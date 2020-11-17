@@ -30,8 +30,8 @@ public class Motion : MonoBehaviour
     if (GunRelord() && state == "Relord")
     {
       state = "RelordEnd";
+      Debug.Log(state);
     }
-
   }
 
   void ChangeAnimation()
@@ -96,6 +96,11 @@ public class Motion : MonoBehaviour
     ChangeAnimation();
   }
   void IdleMotion()
+  {
+    state = "Idle";
+    ChangeAnimation();
+  }
+  public void Test()
   {
     state = "Idle";
     ChangeAnimation();

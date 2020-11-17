@@ -50,7 +50,6 @@ public class FirstPersonGunController : MonoBehaviour
       RelordKey();
     }
 
-    Debug.Log("2");
     if (animator.GetBool("Idle"))
     {
       if (shootEnabled && ammo > 0 && GetInput())
@@ -67,17 +66,18 @@ public class FirstPersonGunController : MonoBehaviour
         }
       }
     }
-
   }
 
   void RelordKey()
   {
     if (Motion.state == "RelordEnd")
     {
+      Debug.Log("2");
       InitGun();
     }
     else
     {
+      Debug.Log("1");
       motion.RelordMotion();
     }
   }
@@ -114,11 +114,13 @@ public class FirstPersonGunController : MonoBehaviour
 
       if (WeponChange.Key == 1)
       {
+        shootRange = 30;
         Shoot();
       }
       else if (WeponChange.Key == 2)
       {
-        for (int i = 0; i < 7; i++)
+        shootRange = 10;
+        for (int i = 0; i < 10; i++)
         {
           Shoot();
         }
@@ -178,12 +180,13 @@ public class FirstPersonGunController : MonoBehaviour
 
   void CircleHorizon()
   {
-    float angle = Random.Range(-15, 15);
+    float angle = Random.Range(0, 360);
+    float radius = Random.Range(0, 0.2f);
     float rad = angle * Mathf.Deg2Rad;
-    float px = Mathf.Cos(rad) * 1;
-    float py = Mathf.Sin(rad) * 1;
-    Circle = new Vector3(px, py, 1);
-    Debug.Log(Circle);
+    float px = Mathf.Cos(rad) * radius;
+    float pz = Mathf.Cos(rad) * radius;
+    float py = Mathf.Sin(rad) * radius;
+    Circle = new Vector3(px, py, pz) + RayPos.transform.forward;
   }
 
 }

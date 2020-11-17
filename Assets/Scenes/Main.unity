@@ -40289,7 +40289,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &5913352000139128806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40303,7 +40303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shootEnabled: 1
-  maxAmmo: 12
+  maxAmmo: 20
   muzzleFlashScale: {x: 0.005, y: 0.005, z: 0.005}
   muzzleFlashPrefab: {fileID: 1611179162520996753, guid: 054dcd08e184a994fb5f453f7aa71b74,
     type: 3}

@@ -23,6 +23,7 @@ public class FirstPersonGunController : MonoBehaviour
   public GameObject motionObj;
   private Animator animator;
   private Vector3 Circle;
+  private Vector3 shotogun_vector;
   public int Ammo
   {
     set
@@ -153,8 +154,9 @@ public class FirstPersonGunController : MonoBehaviour
 
     if (WeponChange.Key == 2)
     {
-      CircleHorizon();
-      ray = new Ray(RayPos.transform.position, Circle);
+      // CircleHorizon();
+      shotogun_fire();
+      ray = new Ray(RayPos.transform.position, shotogun_vector);
     }
 
     RaycastHit hit;
@@ -188,5 +190,15 @@ public class FirstPersonGunController : MonoBehaviour
     float py = Mathf.Sin(rad) * radius;
     Circle = new Vector3(px, py, pz) + RayPos.transform.forward;
   }
+  void shotogun_fire()
+  {
+    //trandform.upを軸に、-15~15度で回転するクォータニオンを求める
+    var q = Quaternion.AngleAxis(Random.Range(-15f, 15f), RayPos.transform.up);
 
+    //そのクォータニオンにtransform.forwardをかけて、ランダムなショットガンの弾のベクトルを求める
+    var v = q * RayPos.transform.forward;
+
+    shotogun_vector = v + RayPos.transform.position;
+    Debug.DrawRay(RayPos.transform.position, shotogun_vector, Color.red, 50);
+  }
 }

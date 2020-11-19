@@ -22,6 +22,10 @@ public class PlayerCamera : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
+    CameraMove();
+  }
+  void CameraMove()
+  {
     float X_Rotation = Input.GetAxis("Mouse X") * sensitivity;
     float Y_Rotation = Input.GetAxis("Mouse Y") * sensitivity;
     PlayerTransform.transform.Rotate(0, X_Rotation, 0);

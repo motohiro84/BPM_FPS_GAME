@@ -52,3 +52,4 @@
 *.lxo filter=lfs diff=lfs merge=lfs -text
 LevelGenerator filter=lfs diff=lfs merge=lfs -text
 Cartoon[[:space:]]Castle[[:space:]]Building[[:space:]]Kit filter=lfs diff=lfs merge=lfs -text
+Zombie filter=lfs diff=lfs merge=lfs -text

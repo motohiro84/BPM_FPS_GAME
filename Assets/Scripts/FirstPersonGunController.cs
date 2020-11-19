@@ -193,12 +193,14 @@ public class FirstPersonGunController : MonoBehaviour
   void shotogun_fire()
   {
     //trandform.upを軸に、-15~15度で回転するクォータニオンを求める
-    var q = Quaternion.AngleAxis(Random.Range(-15f, 15f), RayPos.transform.up);
+    var y = Quaternion.AngleAxis(Random.Range(-15f, 15f), RayPos.transform.up);
+    var x = Quaternion.AngleAxis(Random.Range(-15f, 15f), RayPos.transform.right);
 
     //そのクォータニオンにtransform.forwardをかけて、ランダムなショットガンの弾のベクトルを求める
-    var v = q * RayPos.transform.forward;
+    var vy = y * RayPos.transform.forward;
+    var vx = x * RayPos.transform.forward;
 
-    shotogun_vector = v + RayPos.transform.position;
+    shotogun_vector = vx + vy;
     Debug.DrawRay(RayPos.transform.position, shotogun_vector, Color.red, 50);
   }
 }

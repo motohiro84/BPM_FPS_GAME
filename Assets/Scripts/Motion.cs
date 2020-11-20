@@ -30,7 +30,6 @@ public class Motion : MonoBehaviour
     if (GunRelord() && state == "Relord")
     {
       state = "RelordEnd";
-      Debug.Log(state);
     }
   }
 

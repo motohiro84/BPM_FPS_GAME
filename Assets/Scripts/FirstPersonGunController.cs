@@ -73,12 +73,10 @@ public class FirstPersonGunController : MonoBehaviour
   {
     if (Motion.state == "RelordEnd")
     {
-      Debug.Log("2");
       InitGun();
     }
     else
     {
-      Debug.Log("1");
       motion.RelordMotion();
     }
   }

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
+  public static GameObject[] oneTime;
   public GameObject Player;
   private PlayerMove playerMove;
   private PlayerCamera playerCamera;
@@ -15,6 +16,10 @@ public class GameManager : MonoBehaviour
   [System.NonSerialized]
   public bool gameOver = false;
 
+  void Awake()
+  {
+    oneTime = GameObject.FindGameObjectsWithTag("OneTime");
+  }
 
   void Start()
   {

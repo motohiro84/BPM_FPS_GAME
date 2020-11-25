@@ -24,6 +24,8 @@ public class FirstPersonGunController : MonoBehaviour
   private Animator animator;
   private Vector3 Circle;
   private Vector3 shotogun_vector;
+  private int damage = 1;
+  string tagName;
   public int Ammo
   {
     set
@@ -161,14 +163,22 @@ public class FirstPersonGunController : MonoBehaviour
 
     if (Physics.Raycast(ray, out hit, shootRange))
     {
+      tagName = hit.collider.gameObject.tag;
       if (hitEffectPrefab != null)
       {
-        hitEffect = Instantiate(hitEffectPrefab, hit.point, Quaternion.identity);
-        hitEffect.transform.rotation = Quaternion.FromToRotation(Vector3.forward, hit.normal);
-        Destroy(hitEffect, 1f);
+        if (tagName == "Ground")
+        {
+          hitEffect = Instantiate(hitEffectPrefab, hit.point, Quaternion.identity);
+          hitEffect.transform.rotation = Quaternion.FromToRotation(Vector3.forward, hit.normal);
+          Destroy(hitEffect, 1f);
+        }
+      }
+      if (tagName == "Enemy")
+      {
+        EnemyController enemy = hit.collider.gameObject.GetComponent<EnemyController>();
+        enemy.Hp -= damage;
       }
     }
-
     Ammo--;
 
   }

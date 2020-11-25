@@ -9,6 +9,8 @@ TagManager:
   - Ground
   - rock
   - OneTime
+  - Enemy
+  - Spawner
   layers:
   - Default
   - TransparentFX

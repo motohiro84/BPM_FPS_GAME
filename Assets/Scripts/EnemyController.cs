@@ -11,7 +11,7 @@ public class EnemyController : MonoBehaviour
 {
   public bool moveEnabled = true;
   [SerializeField]
-  int maxHp = 3;
+  int maxHp = 2;
   [SerializeField]
   int HpDamage = 25;
   [SerializeField]
@@ -92,7 +92,8 @@ public class EnemyController : MonoBehaviour
     boxCollider.enabled = false;
     rigidBody.isKinematic = true;
     yield return new WaitForSeconds(deadTime);
-    Destroy(gameObject);
+    EnemySpawner.enemyNum--;
+    this.gameObject.SetActive(false);
   }
   private void OnCollisionEnter(Collision collision)
   {

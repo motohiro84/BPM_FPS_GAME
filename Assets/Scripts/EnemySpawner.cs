@@ -25,7 +25,6 @@ public class EnemySpawner : MonoBehaviour
   {
     if (enemyNum == 0)
     {
-      Debug.Log(enemyNum);
       OneTimeGate(false);
       enemyNum--;
     }

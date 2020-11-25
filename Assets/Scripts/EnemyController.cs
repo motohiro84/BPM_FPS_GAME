@@ -89,8 +89,6 @@ public class EnemyController : MonoBehaviour
     moveEnabled = false;
     Stop();
     animator.SetTrigger("Dead");
-    boxCollider.enabled = false;
-    rigidBody.isKinematic = true;
     yield return new WaitForSeconds(deadTime);
     EnemySpawner.enemyNum--;
     this.gameObject.SetActive(false);

@@ -53,32 +53,32 @@ public class FirstPersonGunController : MonoBehaviour
       RelordKey();
     }
 
-    // if (animator.GetBool("Idle"))
-    // {
-    if (shootEnabled && ammo > 0 && GetInput())
+    if (Motion.state != "Relord" && Motion.state != "RelordEnd")
     {
-      StartCoroutine(ShootTimer());
-      motion.FireShootMotion();
-    }
-    else if (shootEnabled && ammo == 0 && GetInput())
-    {
-      audioSource.PlayOneShot(sound2);
-      if (WeponChange.Key == 1)
+      if (shootEnabled && ammo > 0 && GetInput())
       {
-        motion.DryShootMotion();
+        StartCoroutine(ShootTimer());
+        motion.FireShootMotion();
+      }
+      else if (shootEnabled && ammo == 0 && GetInput())
+      {
+        audioSource.PlayOneShot(sound2);
+        if (WeponChange.Key == 1)
+        {
+          motion.DryShootMotion();
+        }
       }
     }
-    // }
   }
 
   void RelordKey()
   {
-    Debug.Log(Motion.state);
-    if (Motion.state == "RelordEnd")
+    if (Motion.state == "_Relord")
     {
+      motion.RelordEndMotion();
       InitGun();
     }
-    else
+    else if (Motion.state != "Relord")
     {
       motion.RelordMotion();
     }

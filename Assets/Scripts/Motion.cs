@@ -7,18 +7,31 @@ public class Motion : MonoBehaviour
   private Animator animator;
   public static string state;
   string prevState;
+  string wepon = "Revolver";
+  int weponNum = 1;
+  string weponState;
 
-  // Start is called before the first frame update
   void Start()
   {
     animator = this.gameObject.GetComponent<Animator>();
   }
 
-  // Update is called once per frame
   void Update()
   {
-    ChangeState();
-    ChangeAnimation();
+    if (WeponChange.Key != weponNum)
+    {
+      WeponMotionChange();
+    }
+
+    if (state == "Relord")
+    {
+      if (GunRelord())
+      {
+        RelordEndMotion();
+      }
+    }
+    // ChangeState();
+    // ChangeAnimation();
   }
 
   void ChangeState()
@@ -80,19 +93,32 @@ public class Motion : MonoBehaviour
   public void FireShootMotion()
   {
     state = "Fire";
-    ChangeAnimation();
+    WeponName();
+    // ChangeAnimation();
+    animator.CrossFadeInFixedTime(weponState, 0);
   }
 
   public void DryShootMotion()
   {
     state = "DryFire";
-    ChangeAnimation();
+    WeponName();
+    // ChangeAnimation();
+    animator.CrossFadeInFixedTime(weponState, 0);
   }
 
   public void RelordMotion()
   {
     state = "Relord";
-    ChangeAnimation();
+    WeponName();
+    // ChangeAnimation();
+    animator.CrossFadeInFixedTime(weponState, 0);
+  }
+  public void RelordEndMotion()
+  {
+    state = "RelordEnd";
+    WeponName();
+    // ChangeAnimation();
+    animator.CrossFadeInFixedTime(weponState, 0);
   }
   void IdleMotion()
   {
@@ -104,4 +130,25 @@ public class Motion : MonoBehaviour
     state = "Idle";
     ChangeAnimation();
   }
+
+  void WeponMotionChange()
+  {
+    if (weponNum == 1)
+    {
+      weponNum = 2;
+      wepon = "Shotgun";
+    }
+    else
+    {
+      weponNum = 1;
+      wepon = "Revolver";
+    }
+    WeponName();
+  }
+
+  void WeponName()
+  {
+    weponState = wepon + "_" + state;
+  }
+
 }

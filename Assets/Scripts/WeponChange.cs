@@ -10,6 +10,7 @@ public class WeponChange : MonoBehaviour
   void Start()
   {
     Wepon[0].SetActive(true);
+    FirstPersonGunController.damage = 2;
   }
 
   void Update()
@@ -24,12 +25,14 @@ public class WeponChange : MonoBehaviour
       Wepon[0].SetActive(true);
       Wepon[1].SetActive(false);
       Key = 1;
+      FirstPersonGunController.damage = 2;
     }
     else if (Wepon[0].activeSelf && Input.GetKeyDown(KeyCode.Alpha2))
     {
       Wepon[0].SetActive(false);
       Wepon[1].SetActive(true);
       Key = 2;
+      FirstPersonGunController.damage = 1;
     }
   }
 

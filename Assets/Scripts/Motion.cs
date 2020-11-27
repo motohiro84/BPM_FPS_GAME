@@ -7,101 +7,94 @@ public class Motion : MonoBehaviour
   private Animator animator;
   public static string state;
   string prevState;
+  string wepon = "Revolver";
+  int weponNum = 1;
+  string weponState;
+  AnimatorStateInfo animStateInfo;
 
-  // Start is called before the first frame update
   void Start()
   {
     animator = this.gameObject.GetComponent<Animator>();
   }
 
-  // Update is called once per frame
   void Update()
   {
-    ChangeState();
-    ChangeAnimation();
-  }
+    animStateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
-  void ChangeState()
-  {
-    if (state != "Relord" && state != "RelordEnd")
+    if (WeponChange.Key != weponNum)
     {
-      state = "Idle";
+      WeponMotionChange();
     }
-    if (GunRelord() && state == "Relord")
-    {
-      state = "RelordEnd";
-    }
-  }
 
-  void ChangeAnimation()
-  {
-    if (prevState != state)
+    if (animStateInfo.fullPathHash == Animator.StringToHash("Base Layer." + wepon + "_Relord"))
     {
-      switch (state)
+      if (animStateInfo.normalizedTime >= 1.0f)
       {
-        case "Fire":
-          animator.SetTrigger("Fire");
-          animator.SetBool("Idle", false);
-          animator.SetBool("Relord", false);
-          animator.SetBool("RelordEnd", false);
-          break;
-        case "DryFire":
-          animator.SetTrigger("DryFire");
-          animator.SetBool("Idle", false);
-          animator.SetBool("Relord", false);
-          animator.SetBool("RelordEnd", false);
-          break;
-        case "Relord":
-          animator.SetBool("Relord", true);
-          animator.SetBool("Idle", false);
-          animator.SetBool("RelordEnd", false);
-          break;
-        case "RelordEnd":
-          animator.SetBool("RelordEnd", true);
-          animator.SetBool("Relord", false);
-          animator.SetBool("Idle", false);
-          break;
-
-        default:
-          animator.SetBool("Idle", true);
-          animator.SetBool("Relord", false);
-          animator.SetBool("RelordEnd", false);
-          break;
+        state = "_Relord";
       }
-      prevState = state;
+    }
+
+    if (animStateInfo.fullPathHash == Animator.StringToHash("Base Layer." + wepon + "_RelordEnd"))
+    {
+      if (animStateInfo.normalizedTime >= 1.0f)
+      {
+        IdleMotion();
+      }
     }
   }
 
-  bool GunRelord()
+  void IdleMotion()
   {
-    return Input.GetKeyDown(KeyCode.R);
+    state = "Idle";
+    WeponName();
+    animator.CrossFadeInFixedTime(weponState, 0);
   }
 
   public void FireShootMotion()
   {
     state = "Fire";
-    ChangeAnimation();
+    WeponName();
+    animator.CrossFadeInFixedTime(weponState, 0);
   }
 
   public void DryShootMotion()
   {
     state = "DryFire";
-    ChangeAnimation();
+    WeponName();
+    animator.CrossFadeInFixedTime(weponState, 0);
   }
 
   public void RelordMotion()
   {
     state = "Relord";
-    ChangeAnimation();
+    WeponName();
+    animator.CrossFadeInFixedTime(weponState, 0);
   }
-  void IdleMotion()
+  public void RelordEndMotion()
   {
-    state = "Idle";
-    ChangeAnimation();
+    state = "RelordEnd";
+    WeponName();
+    animator.CrossFadeInFixedTime(weponState, 0);
   }
-  public void Test()
+
+  void WeponMotionChange()
   {
-    state = "Idle";
-    ChangeAnimation();
+    if (weponNum == 1)
+    {
+      weponNum = 2;
+      wepon = "Shotgun";
+    }
+    else
+    {
+      weponNum = 1;
+      wepon = "Revolver";
+    }
+    WeponName();
   }
+
+  void WeponName()
+  {
+    weponState = wepon + "_" + state;
+  }
+
 }

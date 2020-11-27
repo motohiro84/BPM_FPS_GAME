@@ -10,8 +10,7 @@ using UnityEngine.AI;
 public class EnemyController : MonoBehaviour
 {
   public bool moveEnabled = true;
-  [SerializeField]
-  int maxHp = 2;
+  public int maxHp = 3;
   [SerializeField]
   int HpDamage = 25;
   [SerializeField]
@@ -89,6 +88,7 @@ public class EnemyController : MonoBehaviour
     moveEnabled = false;
     Stop();
     animator.SetTrigger("Dead");
+    boxCollider.enabled = false;
     yield return new WaitForSeconds(deadTime);
     EnemySpawner.enemyNum--;
     this.gameObject.SetActive(false);

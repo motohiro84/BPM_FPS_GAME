@@ -24,7 +24,7 @@ public class FirstPersonGunController : MonoBehaviour
   private Animator animator;
   private Vector3 Circle;
   private Vector3 shotogun_vector;
-  private int damage = 1;
+  public static int damage;
   string tagName;
   public int Ammo
   {
@@ -116,7 +116,7 @@ public class FirstPersonGunController : MonoBehaviour
 
       if (WeponChange.Key == 1)
       {
-        shootRange = 30;
+        shootRange = 50;
         Shoot();
       }
       else if (WeponChange.Key == 2)
@@ -167,7 +167,7 @@ public class FirstPersonGunController : MonoBehaviour
       tagName = hit.collider.gameObject.tag;
       if (hitEffectPrefab != null)
       {
-        if (tagName == "Ground")
+        if (tagName == "Ground" || tagName == "rock")
         {
           hitEffect = Instantiate(hitEffectPrefab, hit.point, Quaternion.identity);
           hitEffect.transform.rotation = Quaternion.FromToRotation(Vector3.forward, hit.normal);
@@ -189,21 +189,11 @@ public class FirstPersonGunController : MonoBehaviour
     return Input.GetKeyDown(KeyCode.R);
   }
 
-  void CircleHorizon()
-  {
-    float angle = Random.Range(0, 360);
-    float radius = Random.Range(0, 0.2f);
-    float rad = angle * Mathf.Deg2Rad;
-    float px = Mathf.Cos(rad) * radius;
-    float pz = Mathf.Cos(rad) * radius;
-    float py = Mathf.Sin(rad) * radius;
-    Circle = new Vector3(px, py, pz) + RayPos.transform.forward;
-  }
   void shotogun_fire()
   {
-    //trandform.upを軸に、-15~15度で回転するクォータニオンを求める
-    var y = Quaternion.AngleAxis(Random.Range(-15f, 15f), RayPos.transform.up);
-    var x = Quaternion.AngleAxis(Random.Range(-15f, 15f), RayPos.transform.right);
+    //trandform.upを軸に、-20~20度で回転するクォータニオンを求める
+    var y = Quaternion.AngleAxis(Random.Range(-20f, 20f), RayPos.transform.up);
+    var x = Quaternion.AngleAxis(Random.Range(-20f, 20f), RayPos.transform.right);
 
     //そのクォータニオンにtransform.forwardをかけて、ランダムなショットガンの弾のベクトルを求める
     var vy = y * RayPos.transform.forward;

@@ -51,6 +51,7 @@ public class EnemySpawner : MonoBehaviour
       EnemyController enemy = i.GetComponent<EnemyController>();
       enemy.Hp = 2;
       enemy.moveEnabled = true;
+      enemy.GetComponent<BoxCollider>().enabled = true;
       x = Random.Range(-6, 6);
       z = Random.Range(-6, 6);
       SpawnPostion = new Vector3(spawnPoint1.transform.position.x + x, spawnPoint1.transform.position.y, spawnPoint1.transform.position.z + z);
@@ -64,6 +65,7 @@ public class EnemySpawner : MonoBehaviour
         EnemyController enemy = i.GetComponent<EnemyController>();
         enemy.Hp = 2;
         enemy.moveEnabled = true;
+        enemy.GetComponent<BoxCollider>().enabled = true;
         x = Random.Range(-6, 6);
         z = Random.Range(-6, 6);
         SpawnPostion = new Vector3(spawnPoint2.transform.position.x + x, spawnPoint2.transform.position.y, spawnPoint2.transform.position.z + z);

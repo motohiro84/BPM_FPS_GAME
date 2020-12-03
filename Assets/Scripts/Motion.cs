@@ -6,7 +6,6 @@ public class Motion : MonoBehaviour
 {
   private Animator animator;
   public static string state;
-  string prevState;
   string wepon = "Revolver";
   int weponNum = 1;
   string weponState;
@@ -43,7 +42,7 @@ public class Motion : MonoBehaviour
     }
   }
 
-  void IdleMotion()
+  public void IdleMotion()
   {
     state = "Idle";
     WeponName();

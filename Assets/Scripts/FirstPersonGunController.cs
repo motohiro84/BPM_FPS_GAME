@@ -128,7 +128,7 @@ public class FirstPersonGunController : MonoBehaviour
         }
       }
 
-      audioSource.PlayOneShot(sound1);
+      audioSource.PlayOneShot(sound1, 0.2f);
       yield return new WaitForSeconds(shootInterval);
 
       if (muzzleFlash != null)

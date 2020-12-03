@@ -6,7 +6,6 @@ public class EnemySpawner : MonoBehaviour
 {
   public GameObject[] zombie1;
   public GameObject[] zombie2;
-  private GameObject[] oneTime;
   public GameObject spawnPoint1;
   public GameObject spawnPoint2;
   private float x;

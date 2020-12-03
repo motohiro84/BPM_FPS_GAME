@@ -12,7 +12,7 @@ public class EnemyController : MonoBehaviour
   public bool moveEnabled = true;
   public int maxHp = 3;
   [SerializeField]
-  int HpDamage = 25;
+  int HpDamage = 10;
   [SerializeField]
   int attackInterval = 1;
   [SerializeField]
@@ -23,7 +23,7 @@ public class EnemyController : MonoBehaviour
   int hp;
   float moveSpeed;
   Animator animator;
-  BoxCollider boxCollider;
+  CapsuleCollider boxCollider;
   Rigidbody rigidBody;
   NavMeshAgent agent;
   Transform target;
@@ -47,7 +47,7 @@ public class EnemyController : MonoBehaviour
   void Start()
   {
     animator = GetComponent<Animator>();
-    boxCollider = GetComponent<BoxCollider>();
+    boxCollider = GetComponent<CapsuleCollider>();
     rigidBody = GetComponent<Rigidbody>();
     agent = GetComponent<NavMeshAgent>();
     target = GameObject.FindGameObjectWithTag(targetTag).transform;

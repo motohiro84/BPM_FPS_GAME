@@ -26,6 +26,7 @@ public class EnemySpawner : MonoBehaviour
     {
       OneTimeGate(false);
       enemyNum--;
+      BossSpawner.bossNum--;
     }
   }
 

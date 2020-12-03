@@ -14,11 +14,12 @@ public class BossController : MonoBehaviour
 
   public int maxHp = 20;
   public GameObject Player;
+  public GameObject BossCollider;
 
   [SerializeField]
   string targetTag = "Player";
   [SerializeField]
-  // float deadTime = 3;
+  float deadTime = 3;
   bool attacking = false;
   int hp;
   float moveSpeed = 2f;
@@ -43,7 +44,7 @@ public class BossController : MonoBehaviour
       hp = Mathf.Clamp(value, 0, maxHp);
       if (hp <= 0)
       {
-        // StartCoroutine(Dead());
+        StartCoroutine(Dead());
       }
     }
     get
@@ -51,6 +52,7 @@ public class BossController : MonoBehaviour
       return hp;
     }
   }
+
 
   void Start()
   {
@@ -80,17 +82,21 @@ public class BossController : MonoBehaviour
     {
       if (AttackChara.Key && !attacking)
       {
-        Debug.Log("1");
         Attack();
       }
-      // if (AttackChara.Key && attacking)
-      // {
-      //   AttackChara.Key = false;
-      //   attacking = false;
-      // }
     }
   }
 
+  IEnumerator Dead()
+  {
+    moveEnabled = false;
+    Stop();
+    animator.SetTrigger("Dead");
+    BossCollider.SetActive(false);
+    yield return new WaitForSeconds(deadTime);
+    BossSpawner.bossNum--;
+    this.gameObject.SetActive(false);
+  }
   void InitCharacter()
   {
     Hp = maxHp;

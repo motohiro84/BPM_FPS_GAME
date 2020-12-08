@@ -24,20 +24,20 @@ public class NewPrefab : MonoBehaviour
     if (Music.IsJustChangedBar() && Time.time > 4)
     {
       PrefabNew();
-      a = Time.time;
-      if (n == 0)
-      {
-        b = Time.time;
-        n++;
-      }
-      else
-      {
-        plus += (a - b);
-        ave = plus / n;
-        n++;
-        b = Time.time;
-      }
-      Debug.Log(ave);
+      // a = Time.time;
+      // if (n == 0)
+      // {
+      //   b = Time.time;
+      //   n++;
+      // }
+      // else
+      // {
+      //   plus += (a - b);
+      //   ave = plus / n;
+      //   n++;
+      //   b = Time.time;
+      // }
+      // Debug.Log(ave);
     }
   }
 
@@ -50,7 +50,7 @@ public class NewPrefab : MonoBehaviour
     }
     else
     {
-      prefab1.transform.localScale = new Vector3(1, 1, 1);
+      prefab1.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
       key = true;
     }
     GameObject clone = Instantiate(prefab1, obj.transform);

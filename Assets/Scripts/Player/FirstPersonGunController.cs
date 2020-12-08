@@ -19,6 +19,7 @@ public class FirstPersonGunController : MonoBehaviour
   AudioSource audioSource;
   public AudioClip sound1;
   public AudioClip sound2;
+  public AudioClip soundMiss;
   Motion motion;
   public GameObject motionObj;
   public GameObject Boss;
@@ -26,6 +27,9 @@ public class FirstPersonGunController : MonoBehaviour
   private Vector3 Circle;
   private Vector3 shotogun_vector;
   BossController bossHp;
+  bool rhythm;
+  bool missKey = false;
+
   public static int damage;
   string tagName;
   public int Ammo
@@ -43,14 +47,18 @@ public class FirstPersonGunController : MonoBehaviour
   void Start()
   {
     audioSource = GameObject.Find("Player").GetComponent<AudioSource>();
+    Music.Play("Player");
     motion = motionObj.GetComponent<Motion>();
     animator = motionObj.GetComponent<Animator>();
     bossHp = Boss.GetComponent<BossController>();
     InitGun();
   }
 
+
   void Update()
   {
+    Rhythm();
+
     if (ammo < maxAmmo && GunRelord())
     {
       RelordKey();
@@ -58,25 +66,72 @@ public class FirstPersonGunController : MonoBehaviour
 
     if (Motion.state != "Relord" && Motion.state != "RelordEnd")
     {
-      if (shootEnabled && ammo > 0 && GetInput())
+      if (!rhythm && GetInput())
       {
-        StartCoroutine(ShootTimer());
-        motion.FireShootMotion();
+        missKey = true;
+        audioSource.PlayOneShot(soundMiss, 0.2f);
+        Invoke("Miss", 0.2f);
       }
-      else if (shootEnabled && ammo == 0 && GetInput())
+      else if (rhythm)
       {
-        audioSource.PlayOneShot(sound2);
-        if (WeponChange.Key == 1)
+        if (shootEnabled && ammo > 0 && GetInput())
         {
-          motion.DryShootMotion();
+          StartCoroutine(ShootTimer());
+          motion.FireShootMotion();
         }
+        else if (shootEnabled && ammo == 0 && GetInput() && rhythm)
+        {
+          audioSource.PlayOneShot(sound2);
+          if (WeponChange.Key == 1)
+          {
+            motion.DryShootMotion();
+          }
+        }
+      }
+    }
+    else if (Motion.state == "Relord" || Motion.state == "RelordEnd")
+    {
+      if (GetInput())
+      {
+        missKey = true;
+        audioSource.PlayOneShot(soundMiss, 0.2f);
+        Invoke("Miss", 0.2f);
       }
     }
   }
 
+
+  void Rhythm()
+  {
+    if (Music.IsJustChangedBar())
+    {
+      rhythm = true;
+    }
+    else if (Music.IsJustChangedBeat())
+    {
+      rhythm = false;
+    }
+    // Invoke("RhythmMethod", 0.05f);
+  }
+
+
+  void RhythmMethod()
+  {
+    rhythm = true;
+  }
+
+  void Miss()
+  {
+    missKey = false;
+  }
+
   void RelordKey()
   {
-    if (Motion.state == "_Relord")
+    if (!rhythm)
+    {
+      audioSource.PlayOneShot(soundMiss, 0.2f);
+    }
+    else if (Motion.state == "_Relord")
     {
       motion.RelordEndMotion();
       InitGun();

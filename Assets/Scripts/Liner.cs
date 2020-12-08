@@ -6,7 +6,7 @@ public class Liner : MonoBehaviour
 {
 
   [SerializeField, Range(0, 10)]
-  float time = 1.2f;
+  float time = 0.9f;
 
   [SerializeField]
   Vector3 endPosition1;

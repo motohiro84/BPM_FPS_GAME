@@ -11,9 +11,12 @@ public class BossSpawner : MonoBehaviour
   private float z;
   int num = 1;
   public static int bossNum;
+  GameManager gameManager;
+
 
   void Start()
   {
+    gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     bossNum = 5;
   }
 
@@ -31,6 +34,7 @@ public class BossSpawner : MonoBehaviour
     }
     if (bossNum == 0)
     {
+      StartCoroutine(gameManager.GameClear());
       OneTimeGate(false);
       bossNum--;
     }

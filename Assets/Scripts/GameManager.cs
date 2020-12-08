@@ -61,18 +61,16 @@ public class GameManager : MonoBehaviour
     gunCOntroller.shootEnabled = false;
     centerText.enabled = true;
     centerText.text = "Game Over";
-    yield return new WaitForSeconds(waitTime);
-    DestroyEnemies();
-    centerText.text = "";
-    centerText.enabled = false;
-    gameOver = false;
+    yield return null;
   }
-  void DestroyEnemies()
+  public IEnumerator GameClear()
   {
-    GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-    foreach (GameObject enemy in enemies)
-    {
-      Destroy(enemy);
-    }
+    gameOver = true;
+    playerMove.enabled = false;
+    playerCamera.enabled = false;
+    gunCOntroller.shootEnabled = false;
+    centerText.enabled = true;
+    centerText.text = "Game Clear";
+    yield return null;
   }
 }

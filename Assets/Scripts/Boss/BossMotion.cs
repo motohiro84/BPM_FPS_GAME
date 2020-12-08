@@ -64,6 +64,12 @@ public class BossMotion : MonoBehaviour
     Animation();
     prevState = state;
   }
+  public void DeadMotion()
+  {
+    state = "Death";
+    Animation();
+    prevState = state;
+  }
   public void RunMotion()
   {
     state = "Run";

@@ -90,9 +90,8 @@ public class BossController : MonoBehaviour
   IEnumerator Dead()
   {
     moveEnabled = false;
-    Stop();
-    animator.SetTrigger("Dead");
-    BossCollider.SetActive(false);
+    bossMotion.DeadMotion();
+    // BossCollider.SetActive(false);
     yield return new WaitForSeconds(deadTime);
     BossSpawner.bossNum--;
     this.gameObject.SetActive(false);

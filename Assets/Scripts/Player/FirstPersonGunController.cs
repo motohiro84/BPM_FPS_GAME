@@ -21,9 +21,11 @@ public class FirstPersonGunController : MonoBehaviour
   public AudioClip sound2;
   Motion motion;
   public GameObject motionObj;
+  public GameObject Boss;
   private Animator animator;
   private Vector3 Circle;
   private Vector3 shotogun_vector;
+  BossController bossHp;
   public static int damage;
   string tagName;
   public int Ammo
@@ -43,6 +45,7 @@ public class FirstPersonGunController : MonoBehaviour
     audioSource = GameObject.Find("Player").GetComponent<AudioSource>();
     motion = motionObj.GetComponent<Motion>();
     animator = motionObj.GetComponent<Animator>();
+    bossHp = Boss.GetComponent<BossController>();
     InitGun();
   }
 
@@ -178,6 +181,10 @@ public class FirstPersonGunController : MonoBehaviour
       {
         EnemyController enemy = hit.collider.gameObject.GetComponent<EnemyController>();
         enemy.Hp -= damage;
+      }
+      if (tagName == "Boss")
+      {
+        bossHp.Hp -= damage;
       }
     }
     Ammo--;

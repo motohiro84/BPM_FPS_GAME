@@ -8,6 +8,7 @@ public class PlayerHP : MonoBehaviour
   public int maxHP = 100;
   public int Hp = 0;
   public Image HpGauge;
+  GameManager gameManager;
 
   public int HP
   {
@@ -23,14 +24,20 @@ public class PlayerHP : MonoBehaviour
       return Hp;
     }
   }
+
   void Start()
   {
+    gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     HP = maxHP;
   }
 
   // Update is called once per frame
   void Update()
   {
-
+    if (Hp == 0)
+    {
+      StartCoroutine(gameManager.GameOver());
+    }
   }
 }
+

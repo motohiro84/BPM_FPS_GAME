@@ -24,20 +24,6 @@ public class NewPrefab : MonoBehaviour
     if (Music.IsJustChangedBar() && Time.time > 4)
     {
       PrefabNew();
-      // a = Time.time;
-      // if (n == 0)
-      // {
-      //   b = Time.time;
-      //   n++;
-      // }
-      // else
-      // {
-      //   plus += (a - b);
-      //   ave = plus / n;
-      //   n++;
-      //   b = Time.time;
-      // }
-      // Debug.Log(ave);
     }
   }
 

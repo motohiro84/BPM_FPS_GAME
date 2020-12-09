@@ -9,6 +9,7 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
+  public GameObject BaseZombie;
   public bool moveEnabled = true;
   public int maxHp = 3;
   [SerializeField]
@@ -23,7 +24,6 @@ public class EnemyController : MonoBehaviour
   int hp;
   float moveSpeed;
   Animator animator;
-  CapsuleCollider boxCollider;
   Rigidbody rigidBody;
   NavMeshAgent agent;
   Transform target;
@@ -47,7 +47,6 @@ public class EnemyController : MonoBehaviour
   void Start()
   {
     animator = GetComponent<Animator>();
-    boxCollider = GetComponent<CapsuleCollider>();
     rigidBody = GetComponent<Rigidbody>();
     agent = GetComponent<NavMeshAgent>();
     target = GameObject.FindGameObjectWithTag(targetTag).transform;
@@ -88,19 +87,19 @@ public class EnemyController : MonoBehaviour
     moveEnabled = false;
     Stop();
     animator.SetTrigger("Dead");
-    boxCollider.enabled = false;
+    BaseZombie.SetActive(false);
     yield return new WaitForSeconds(deadTime);
     EnemySpawner.enemyNum--;
     this.gameObject.SetActive(false);
   }
-  private void OnCollisionEnter(Collision collision)
-  {
-    if (collision.gameObject.tag == "Player")
-    {
-      StartCoroutine(AttackTimer());
-    }
-  }
-  IEnumerator AttackTimer()
+  // private void OnCollisionEnter(Collision collision)
+  // {
+  //   if (collision.gameObject.tag == "Player")
+  //   {
+  //     StartCoroutine(AttackTimer());
+  //   }
+  // }
+  public IEnumerator AttackTimer()
   {
     if (!attacking)
     {

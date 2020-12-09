@@ -64,15 +64,15 @@ public class FirstPersonGunController : MonoBehaviour
       RelordKey();
     }
 
-    if (Motion.state != "Relord" && Motion.state != "RelordEnd")
+    if (Motion.state != "Relord" && Motion.state != "RelordEnd" && Motion.state != "_Relord")
     {
       if (!rhythm && GetInput())
       {
         missKey = true;
         audioSource.PlayOneShot(soundMiss, 0.2f);
-        Invoke("Miss", 0.2f);
+        Invoke("Miss", 0.3f);
       }
-      else if (rhythm)
+      else if (rhythm && !missKey)
       {
         if (shootEnabled && ammo > 0 && GetInput())
         {
@@ -89,17 +89,16 @@ public class FirstPersonGunController : MonoBehaviour
         }
       }
     }
-    else if (Motion.state == "Relord" || Motion.state == "RelordEnd")
+    else if (Motion.state == "Relord" || Motion.state == "RelordEnd" || Motion.state != "_Relord")
     {
       if (GetInput())
       {
         missKey = true;
         audioSource.PlayOneShot(soundMiss, 0.2f);
-        Invoke("Miss", 0.2f);
+        Invoke("Miss", 0.3f);
       }
     }
   }
-
 
   void Rhythm()
   {
@@ -111,7 +110,6 @@ public class FirstPersonGunController : MonoBehaviour
     {
       rhythm = false;
     }
-    // Invoke("RhythmMethod", 0.05f);
   }
 
 
@@ -179,8 +177,8 @@ public class FirstPersonGunController : MonoBehaviour
       }
       else if (WeponChange.Key == 2)
       {
-        shootRange = 10;
-        for (int i = 0; i < 10; i++)
+        shootRange = 15;
+        for (int i = 0; i < 8; i++)
         {
           Shoot();
         }
@@ -213,7 +211,6 @@ public class FirstPersonGunController : MonoBehaviour
 
     if (WeponChange.Key == 2)
     {
-      // CircleHorizon();
       shotogun_fire();
       ray = new Ray(RayPos.transform.position, shotogun_vector);
     }
@@ -234,7 +231,7 @@ public class FirstPersonGunController : MonoBehaviour
       }
       if (tagName == "Enemy")
       {
-        EnemyController enemy = hit.collider.gameObject.GetComponent<EnemyController>();
+        EnemyController enemy = hit.collider.gameObject.transform.root.gameObject.GetComponent<EnemyController>();
         enemy.Hp -= damage;
       }
       if (tagName == "Boss")
@@ -262,6 +259,5 @@ public class FirstPersonGunController : MonoBehaviour
     var vx = x * RayPos.transform.forward;
 
     shotogun_vector = vx + vy;
-    Debug.DrawRay(RayPos.transform.position, shotogun_vector, Color.red, 50);
   }
 }

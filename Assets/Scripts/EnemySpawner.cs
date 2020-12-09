@@ -49,28 +49,30 @@ public class EnemySpawner : MonoBehaviour
     foreach (GameObject i in zombie1)
     {
       EnemyController enemy = i.GetComponent<EnemyController>();
-      enemy.Hp = 2;
+      enemy.Hp = 3;
       enemy.moveEnabled = true;
-      enemy.GetComponent<BoxCollider>().enabled = true;
       x = Random.Range(-6, 6);
       z = Random.Range(-6, 6);
       SpawnPostion = new Vector3(spawnPoint1.transform.position.x + x, spawnPoint1.transform.position.y, spawnPoint1.transform.position.z + z);
       i.transform.position = SpawnPostion;
       i.SetActive(true);
+      GameObject BaseZombie = i.transform.Find("Base HumanPelvis").gameObject;
+      BaseZombie.SetActive(true);
     }
     if (spawnPoint2 != null)
     {
       foreach (GameObject i in zombie2)
       {
         EnemyController enemy = i.GetComponent<EnemyController>();
-        enemy.Hp = 2;
+        enemy.Hp = 3;
         enemy.moveEnabled = true;
-        enemy.GetComponent<BoxCollider>().enabled = true;
         x = Random.Range(-6, 6);
         z = Random.Range(-6, 6);
         SpawnPostion = new Vector3(spawnPoint2.transform.position.x + x, spawnPoint2.transform.position.y, spawnPoint2.transform.position.z + z);
         i.transform.position = SpawnPostion;
         i.SetActive(true);
+        GameObject BaseZombie = i.transform.Find("Base HumanPelvis").gameObject;
+        BaseZombie.SetActive(true);
       }
       enemyNum = 8;
     }

@@ -9,6 +9,7 @@ public class PlayerHP : MonoBehaviour
   public int Hp = 0;
   public Image HpGauge;
   GameManager gameManager;
+  EnemyController enemy;
 
   public int HP
   {
@@ -37,6 +38,15 @@ public class PlayerHP : MonoBehaviour
     if (Hp == 0)
     {
       StartCoroutine(gameManager.GameOver());
+    }
+  }
+
+  void OnCollisionEnter(Collision collision)
+  {
+    if (collision.gameObject.tag == "Enemy")
+    {
+      EnemyController enemy = collision.gameObject.transform.root.gameObject.GetComponent<EnemyController>();
+      StartCoroutine(enemy.AttackTimer());
     }
   }
 }

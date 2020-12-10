@@ -57,7 +57,7 @@ public class FirstPersonGunController : MonoBehaviour
 
   void Update()
   {
-    Rhythm();
+    // Rhythm();
 
     if (ammo < maxAmmo && GunRelord())
     {
@@ -66,20 +66,20 @@ public class FirstPersonGunController : MonoBehaviour
 
     if (Motion.state != "Relord" && Motion.state != "RelordEnd" && Motion.state != "_Relord")
     {
-      if (!rhythm && GetInput())
+      if (!Liner.rhythm && GetInput())
       {
         missKey = true;
         audioSource.PlayOneShot(soundMiss, 0.2f);
         Invoke("Miss", 0.3f);
       }
-      else if (rhythm && !missKey)
+      else if (Liner.rhythm && !missKey)
       {
         if (shootEnabled && ammo > 0 && GetInput())
         {
           StartCoroutine(ShootTimer());
           motion.FireShootMotion();
         }
-        else if (shootEnabled && ammo == 0 && GetInput() && rhythm)
+        else if (shootEnabled && ammo == 0 && GetInput() && Liner.rhythm)
         {
           audioSource.PlayOneShot(sound2);
           if (WeponChange.Key == 1)
@@ -110,6 +110,7 @@ public class FirstPersonGunController : MonoBehaviour
     {
       rhythm = false;
     }
+
   }
 
 
@@ -125,7 +126,7 @@ public class FirstPersonGunController : MonoBehaviour
 
   void RelordKey()
   {
-    if (!rhythm)
+    if (!Liner.rhythm)
     {
       audioSource.PlayOneShot(soundMiss, 0.2f);
     }

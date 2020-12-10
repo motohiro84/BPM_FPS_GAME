@@ -23,6 +23,11 @@ public class BossMotion : MonoBehaviour
 
   void Update()
   {
+    AnimationCheck();
+  }
+
+  void AnimationCheck()
+  {
     animStateInfo = animator.GetCurrentAnimatorStateInfo(0);
     if (animStateInfo.fullPathHash == Animator.StringToHash("Base Layer.Attack" + BossController.attackNum))
     {
@@ -34,12 +39,11 @@ public class BossMotion : MonoBehaviour
     if (animStateInfo.fullPathHash == Animator.StringToHash("Base Layer.JumpEnd"))
     {
       bossController.moveEnabled = false;
-      if (animStateInfo.normalizedTime >= 1.0f)
+      if (animStateInfo.normalizedTime >= 0.99f)
       {
         JumpAttack.SetActive(false);
         BossController.jumpKey = false;
         bossController.moveEnabled = true;
-        RunMotion();
       }
     }
     if (animStateInfo.fullPathHash == Animator.StringToHash("Base Layer.Jump"))
@@ -49,6 +53,7 @@ public class BossMotion : MonoBehaviour
         JumpAttack.SetActive(true);
       }
     }
+
   }
 
   void Animation()

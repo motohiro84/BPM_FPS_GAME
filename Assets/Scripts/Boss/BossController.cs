@@ -7,14 +7,14 @@ using UnityEngine;
 
 public class BossController : MonoBehaviour
 {
-  public static GameObject[] AttackSphere;
+  public GameObject[] AttackSphere;
 
   public bool moveEnabled = true;
   public static string attackNum;
 
   public int maxHp = 20;
   public GameObject Player;
-  public GameObject BossCollider;
+  public GameObject Boss;
 
   [SerializeField]
   string targetTag = "Player";
@@ -53,18 +53,18 @@ public class BossController : MonoBehaviour
     }
   }
 
-
   void Start()
   {
-    AttackSphere = GameObject.FindGameObjectsWithTag("Attack");
     jumpKey = false;
     animator = GetComponent<Animator>();
     rigidBody = this.gameObject.GetComponent<Rigidbody>();
     bossMotion = this.gameObject.GetComponent<BossMotion>();
     target = GameObject.FindGameObjectWithTag(targetTag).transform;
+    Boss.SetActive(false);
     AttackMode(false);
     InitCharacter();
   }
+
 
   void LateUpdate()
   {
@@ -80,18 +80,25 @@ public class BossController : MonoBehaviour
 
     if (BossMotion.state == "Run")
     {
-      if (AttackChara.Key && !attacking)
+      if (AttackChara.Key)
       {
-        Attack();
+        if (!attacking)
+        {
+          Attack();
+        }
+        else
+        {
+          attacking = false;
+        }
       }
     }
+    // Debug.Log(BossMotion.state);
   }
 
   IEnumerator Dead()
   {
     moveEnabled = false;
     bossMotion.DeadMotion();
-    // BossCollider.SetActive(false);
     yield return new WaitForSeconds(deadTime);
     BossSpawner.bossNum--;
     this.gameObject.SetActive(false);
@@ -123,21 +130,29 @@ public class BossController : MonoBehaviour
       velocity = direction * moveSpeed;
       bossMotion.WalkMotion();
     }
-    this.transform.position += velocity * Time.deltaTime;
+
+    var distance = Vector3.Distance(transform.position, Player.transform.position);
+    if (distance > 2f || jumpKey)
+    {
+      this.transform.position += velocity * Time.deltaTime;
+    }
   }
   void Stop()
   {
-    direction = (destination - transform.position).normalized;
-    transform.LookAt(new Vector3(destination.x, transform.position.y, destination.z));
+    if (BossMotion.state != "Death")
+    {
+      direction = (destination - transform.position).normalized;
+      transform.LookAt(new Vector3(destination.x, transform.position.y, destination.z));
+    }
   }
 
   void Attack()
   {
     attackNum = Random.Range(1, 4).ToString();
+    bossMotion.AttackMotion();
     attacking = true;
     moveEnabled = false;
     AttackMode(true);
-    bossMotion.AttackMotion();
   }
 
   public void AttackTime()

@@ -10,6 +10,7 @@ public class Liner : MonoBehaviour
 
   [SerializeField]
   Vector3 endPosition1;
+  public static bool rhythm;
 
   [SerializeField]
   Vector3 endPosition2;
@@ -64,7 +65,8 @@ public class Liner : MonoBehaviour
 
     if (transform.localPosition == endPosition1)
     {
-      Invoke("DestroyMethod", 0.1f);
+      rhythm = true;
+      Invoke("DestroyMethod", 0.15f);
     }
   }
 
@@ -83,12 +85,14 @@ public class Liner : MonoBehaviour
 
     if (transform.localPosition == endPosition2)
     {
-      Invoke("DestroyMethod", 0.1f);
+      rhythm = true;
+      Invoke("DestroyMethod", 0.15f);
     }
   }
 
   void DestroyMethod()
   {
+    rhythm = false;
     Destroy(gameObject);
   }
 }

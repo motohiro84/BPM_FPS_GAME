@@ -10,6 +10,7 @@ public class PlayerHP : MonoBehaviour
   public Image HpGauge;
   GameManager gameManager;
   EnemyController enemy;
+  [SerializeField] int HpDamage = 10;
 
   public int HP
   {
@@ -49,5 +50,14 @@ public class PlayerHP : MonoBehaviour
       StartCoroutine(enemy.AttackTimer());
     }
   }
+
+  void OnTriggerEnter(Collider other)
+  {
+    if (other.CompareTag("Attack"))
+    {
+      HP -= HpDamage;
+    }
+  }
+
 }
 

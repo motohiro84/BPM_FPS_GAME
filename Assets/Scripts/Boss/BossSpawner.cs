@@ -40,6 +40,7 @@ public class BossSpawner : MonoBehaviour
     }
   }
 
+
   void OnTriggerEnter(Collider other)
   {
     if (num == 1)
@@ -55,6 +56,8 @@ public class BossSpawner : MonoBehaviour
 
   void BossEnemy()
   {
+    BossController bossController = Boss.GetComponent<BossController>();
+    bossController.Hp = 20;
     Boss.transform.position = BossPoint.transform.position;
     Boss.SetActive(true);
   }

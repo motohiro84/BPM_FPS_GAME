@@ -87,6 +87,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9ac09dc96a7347dcb6d91031d11871b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 1
+  time: 0.8
   endPosition1: {x: -222, y: 0, z: 0}
   endPosition2: {x: -212, y: 0, z: 0}

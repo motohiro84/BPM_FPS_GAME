@@ -26,7 +26,7 @@ public class FirstPersonGunController : MonoBehaviour
   private Animator animator;
   private Vector3 Circle;
   private Vector3 shotogun_vector;
-  BossController bossHp;
+  Controller bossHp;
   bool rhythm;
   bool missKey = false;
 
@@ -50,14 +50,13 @@ public class FirstPersonGunController : MonoBehaviour
     Music.Play("Player");
     motion = motionObj.GetComponent<Motion>();
     animator = motionObj.GetComponent<Animator>();
-    bossHp = Boss.GetComponent<BossController>();
+    bossHp = Boss.GetComponent<Controller>();
     InitGun();
   }
 
 
   void Update()
   {
-    // Rhythm();
 
     if (ammo < maxAmmo && GunRelord())
     {
@@ -98,25 +97,6 @@ public class FirstPersonGunController : MonoBehaviour
         Invoke("Miss", 0.3f);
       }
     }
-  }
-
-  void Rhythm()
-  {
-    if (Music.IsJustChangedBar())
-    {
-      rhythm = true;
-    }
-    else if (Music.IsJustChangedBeat())
-    {
-      rhythm = false;
-    }
-
-  }
-
-
-  void RhythmMethod()
-  {
-    rhythm = true;
   }
 
   void Miss()

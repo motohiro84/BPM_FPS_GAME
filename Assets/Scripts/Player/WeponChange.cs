@@ -11,7 +11,7 @@ public class WeponChange : MonoBehaviour
 
   void Start()
   {
-    Wepon[0].SetActive(true);
+    Wepon[1].SetActive(false);
     FirstPersonGunController.damage = 2;
     motion1 = Wepon[0].GetComponent<Motion>();
     motion2 = Wepon[1].GetComponent<Motion>();

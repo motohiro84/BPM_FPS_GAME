@@ -5,39 +5,39 @@ using UnityEngine;
 public class JumpEnd : MonoBehaviour
 {
   public GameObject Boss;
+  Animator animator;
   public GameObject Player;
   Rigidbody rigid;
   BossMotion bossMotion;
   public float forcePower;
 
-
   void Start()
   {
+    animator = Boss.GetComponent<Animator>();
     rigid = Player.GetComponent<Rigidbody>();
     bossMotion = Boss.GetComponent<BossMotion>();
+    this.gameObject.SetActive(false);
   }
   void OnTriggerEnter(Collider other)
   {
-    if (BossController.jumpKey)
+
+    if (other.CompareTag("Ground"))
     {
-      if (other.CompareTag("Ground"))
-      {
-        bossMotion.JumpEndMotion();
-      }
+      animator.SetTrigger("JumpEnd");
+    }
 
-      if (other.CompareTag("Player"))
-      {
-        Vector3 toVec = GetAngleVec(Boss, Player);
+    if (other.CompareTag("Player"))
+    {
+      Vector3 toVec = GetAngleVec(Boss, Player);
 
-        rigid.AddForce(toVec * forcePower, ForceMode.Impulse);
-      }
+      rigid.AddForce(toVec * forcePower, ForceMode.Impulse);
     }
   }
 
   Vector3 GetAngleVec(GameObject _from, GameObject _to)
   {
     Vector3 fromVec = new Vector3(_from.transform.position.x, 0, _from.transform.position.z);
-    Vector3 toVec = new Vector3(_to.transform.position.x, 0.03f, _to.transform.position.z);
+    Vector3 toVec = new Vector3(_to.transform.position.x, 0, _to.transform.position.z);
     return Vector3.Normalize(toVec - fromVec);
   }
 }

@@ -56,10 +56,12 @@ public class BossSpawner : MonoBehaviour
 
   void BossEnemy()
   {
-    BossController bossController = Boss.GetComponent<BossController>();
+    Controller bossController = Boss.GetComponent<Controller>();
     bossController.Hp = 20;
     Boss.transform.position = BossPoint.transform.position;
     Boss.SetActive(true);
+    Controller.coolDown = true;
+    StartCoroutine(bossController.CheckState());
   }
 
   void OneTimeGate(bool i)

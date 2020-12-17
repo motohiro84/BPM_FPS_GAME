@@ -34,7 +34,6 @@ public class BossController : MonoBehaviour
   private Vector3 destination;
   private Vector3 velocity;
   private Vector3 direction;
-  public float forcePower;
 
 
   public int Hp

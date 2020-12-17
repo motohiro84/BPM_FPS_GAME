@@ -11,6 +11,8 @@ TagManager:
   - OneTime
   - Enemy
   - Spawner
+  - Boss
+  - Attack
   layers:
   - Default
   - TransparentFX
@@ -28,7 +30,7 @@ TagManager:
   - PostProcessing
   - PostProcessing World
   - MinMap
-  - 
+  - Enemy
   - 
   - 
   - 
